@@ -1,7 +1,7 @@
 LOG_FOLDER="/var/log/expense"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
-LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log
+LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
 mkdir -p $LOG_FOLDER
 
 uSERID=$(id -u)
@@ -30,6 +30,7 @@ VALIDATE(){
 }
 
 echo "script started execting at :: $(date)"
+
 CHECK_ROOT
 
 dnf install mysql-server -y &>>$LOG_FILE
@@ -42,4 +43,4 @@ systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "started MYSQL SEVER"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-VALIDATE $? "setting p root password"
+VALIDATE $? "setting root password"
