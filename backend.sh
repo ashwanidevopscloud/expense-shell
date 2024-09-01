@@ -53,7 +53,7 @@ else
    echo -e "expense user already exists.... $Y Skipping it....$N" | tee -a $LOG_FILE
 fi
 
-mkdir -P /app  | tee -a $LOG_FILE
+mkdir --P /app  | tee -a $LOG_FILE
 VALIDATE $? "Ceating /app folder"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
