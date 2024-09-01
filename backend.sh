@@ -25,7 +25,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$R $2 is Failed....check it $N" | tee -a $LOG_FILE
-        exit 1
+     
     else
         echo -e "$G $2 is success .... completed $N" | tee -a $LOG_FILE
     fi
@@ -53,7 +53,7 @@ else
    echo -e "expense user already exists.... $Y Skipping it....$N" | tee -a $LOG_FILE
 fi
 
-mkdir -P /app | tee -a $LOG_FILE
+mkdir -P /app  | tee -a $LOG_FILE
 VALIDATE $? "Ceating /app folder"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
