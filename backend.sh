@@ -75,7 +75,7 @@ dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Install MYSQL"
 
 mysql -h db.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
-VALIDATE $? "MYSQL ROOT PASSWORD SETTING schema loading is sccesss"
+VALIDATE $? "MYSQL ROOT PASSWORD SETTING schema loading is"
 
 systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? " systemctl demon-reload"
