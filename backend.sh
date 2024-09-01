@@ -14,31 +14,31 @@ uSERID=$(id -u)
 CHECK_ROOT(){
     if [ $? -ne 0 ]
     then
-       echo -e "$R I don't have root access, Please provide the root access with super pivellieges $N"
+       echo -e "$R I don't have root access, Please provide the root access with super pivellieges $N" | tee -a $LOG_FILE
        exit 1
     else
-       echo -e "$G I have root access.... I will procide with that....$N"
+       echo -e "$G I have root access.... I will procide with that....$N" | tee -a $LOG_FILE
     fi
 }
 
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$R $2 is Failed....check it $N"
+        echo -e "$R $2 is Failed....check it $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$G $2 is success .... completed $N"
+        echo -e "$G $2 is success .... completed $N" | tee -a $LOG_FILE
     fi
 }
 
-echo -e "$Y Script started at execting at::: $(date) $N"
+echo -e "$Y Script started at execting at::: $(date) $N" | tee -a $LOG_FILE
 CHECK_ROOT
 
 dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "disable NODEJS"
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-VALIDATE $? "ENABLE NODEJS"
+VALIDATE $? "ENABLE NODEJS :20"
 
 dnf install nodejs -y  &>>$LOG_FILE
 VALIDATE $? "INSTALL NODEJS"
@@ -46,11 +46,11 @@ VALIDATE $? "INSTALL NODEJS"
 id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
 then 
-   echo -e "expenseuser user is not exist...$G ceating it..$N " &>>$LOG_FILE
+   echo -e "expenseuser user is not exist...$G ceating it..$N" &>>$LOG_FILE
    useradd expense  &>>$LOG_FILE
    VALIDATE $? "ADDING useradd EXPENSE"
 else
-   echo -e "expense user already exists.... $Y Skipping it....$N " &>>$LOG_FILE
+   echo -e "expense user already exists.... $Y Skipping it....$N" &>>$LOG_FILE
 fi
 
 mkdir -P /app &>>$LOG_FILE
