@@ -69,4 +69,22 @@ VALIDATE $? "NPM INSTALL PACKAGES"
 
 cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service
 
+# load data base schema
+
+dnf install mysql -y
+VALIDATE $? "Install MYSQL"
+
+mysql -h db.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+VALIDATE $? "MYSQL ROOT PASSWORD SETTING"
+
+systemctl daemon-reload
+VALIDATE $? " systemctl demon-reload"
+systemctl start backend
+VALIDATE $? "START BACKEND"
+systemctl enable backend
+VALIDATE $? "ENABLE BACKEND"
+systemctl restart backend
+VALIDATE $? "RESTART BACKEND"
+
+
 
