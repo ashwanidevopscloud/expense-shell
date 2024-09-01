@@ -43,7 +43,7 @@ VALIDATE $? "ENABLE NODEJS"
 dnf install nodejs -y  &>>LOG_FILE
 VALIDATE $? "INSTALL NODEJS"
 
-# useradd expense  &>>LOG_FILE
+id expense &>>LOG_FILE
 if [ $? -ne 0 ]
 then 
    echo -e "expenseuser user is not exist...$G ceating it..$N " &>>LOG_FILE
@@ -54,7 +54,7 @@ else
 fi
 
 mkdir -P /app &>>LOG_FILE
-VALIDATE $? "MAKEING DIRECTORY"
+
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>LOG_FILE
 VALIDATE $? "DOWNLOADING THE BACKEND CODE....."
 
@@ -65,5 +65,7 @@ VALIDATE $? "ZIPPING TE BACKEND.ZIP FILE EXTACTING"
 
 npm install &>>LOG_FILE
 VALIDATE $? "NPM INSTALL PACKAGES"
+
+cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service
 
 
