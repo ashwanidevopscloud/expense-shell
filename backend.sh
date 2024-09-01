@@ -15,6 +15,7 @@ CHECK_ROOT(){
     if [ $? -ne 0 ]
     then
        echo -e "$R I don't have root access, Please provide the root access with super pivellieges $N"
+       exit 1
     else
        echo -e "$G I have root access.... I will procide with that....$N"
     fi
@@ -24,6 +25,7 @@ VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$R $2 is Failed....check it $N"
+        exit 1
     else
         echo -e "$G $2 is success .... completed $N"
     fi
