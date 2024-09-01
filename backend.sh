@@ -67,23 +67,23 @@ VALIDATE $? "ZIPPING TE BACKEND.ZIP FILE EXTACTING"
 npm install &>>$LOG_FILE
 VALIDATE $? "NPM INSTALL PACKAGES"
 
-cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service &>>$LOG_FILE
 
 # load data base schema
 
-dnf install mysql -y
+dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Install MYSQL"
 
-mysql -h db.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
-VALIDATE $? "MYSQL ROOT PASSWORD SETTING"
+mysql -h db.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "MYSQL ROOT PASSWORD SETTING schema loading is sccesss"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$LOG_FILE
 VALIDATE $? " systemctl demon-reload"
-systemctl start backend
+systemctl start backend &>>$LOG_FILE
 VALIDATE $? "START BACKEND"
-systemctl enable backend
+systemctl enable backend &>>$LOG_FILE
 VALIDATE $? "ENABLE BACKEND"
-systemctl restart backend
+systemctl restart backend &>>$LOG_FILE
 VALIDATE $? "RESTART BACKEND"
 
 
