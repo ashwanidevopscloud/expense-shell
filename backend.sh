@@ -46,14 +46,14 @@ VALIDATE $? "INSTALL NODEJS"
 id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
 then 
-   echo -e "expenseuser user is not exist...$G ceating it..$N" &>>$LOG_FILE
+   echo -e "expenseuser user is not exist...$G ceating it..$N" | tee -a $LOG_FILE
    useradd expense  &>>$LOG_FILE
    VALIDATE $? "ADDING useradd EXPENSE"
 else
-   echo -e "expense user already exists.... $Y Skipping it....$N" &>>$LOG_FILE
+   echo -e "expense user already exists.... $Y Skipping it....$N" | tee -a $LOG_FILE
 fi
 
-mkdir -P /app &>>$LOG_FILE
+mkdir -P /app | tee -a $LOG_FILE
 VALIDATE $? "Ceating /app folder"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
