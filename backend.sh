@@ -67,7 +67,7 @@ VALIDATE $? "ZIPPING TE BACKEND.ZIP FILE EXTACTING"
 npm install &>>$LOG_FILE
 VALIDATE $? "NPM INSTALL PACKAGES"
 
-cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service &>>$LOG_FILE
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOG_FILE
 
 # load data base schema
 
