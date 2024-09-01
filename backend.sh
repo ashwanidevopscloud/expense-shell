@@ -72,9 +72,9 @@ cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.ser
 # load data base schema
 
 dnf install mysql -y &>>$LOG_FILE
-VALIDATE $? "Install MYSQL"
+VALIDATE $? "Install MYSQL client"
 
-mysql -h db.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+mysql -h mysql.asividevops.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATE $? "MYSQL ROOT PASSWORD SETTING schema loading is"
 
 systemctl daemon-reload &>>$LOG_FILE
