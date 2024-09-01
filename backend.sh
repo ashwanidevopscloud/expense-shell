@@ -34,36 +34,37 @@ VALIDATE(){
 echo -e "$Y Script started at execting at::: $(date) $N"
 CHECK_ROOT
 
-dnf module disable nodejs -y &>>LOG_FILE
+dnf module disable nodejs -y &>>$LOG_FILE
 VALIDATE $? "disable NODEJS"
 
-dnf module enable nodejs:20 -y &>>LOG_FILE
+dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "ENABLE NODEJS"
 
-dnf install nodejs -y  &>>LOG_FILE
+dnf install nodejs -y  &>>$LOG_FILE
 VALIDATE $? "INSTALL NODEJS"
 
-id expense &>>LOG_FILE
+id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
 then 
-   echo -e "expenseuser user is not exist...$G ceating it..$N " &>>LOG_FILE
-   useradd expense  &>>LOG_FILE
+   echo -e "expenseuser user is not exist...$G ceating it..$N " &>>$LOG_FILE
+   useradd expense  &>>$LOG_FILE
    VALIDATE $? "ADDING useradd EXPENSE"
 else
-   echo -e "expense user already exists.... $Y Skipping it....$N " &>>LOG_FILE
+   echo -e "expense user already exists.... $Y Skipping it....$N " &>>$LOG_FILE
 fi
 
-mkdir -P /app &>>LOG_FILE
+mkdir -P /app &>>$LOG_FILE
+VALIDATE $? "Ceating /app folder"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>LOG_FILE
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
 VALIDATE $? "DOWNLOADING THE BACKEND CODE....."
 
-cd /app &>>LOG_FILE
+cd /app &>>$LOG_FILE
 rm -rf /app/* #removing the existing code
-unzip /tmp/backend.zip &>>LOG_FILE
+unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "ZIPPING TE BACKEND.ZIP FILE EXTACTING"
 
-npm install &>>LOG_FILE
+npm install &>>$LOG_FILE
 VALIDATE $? "NPM INSTALL PACKAGES"
 
 cp /home/ec2-user/expense-shell/backend.sevice   /etc/systemd/system/backend.service
