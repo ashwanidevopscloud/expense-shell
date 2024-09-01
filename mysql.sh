@@ -42,5 +42,14 @@ VALIDATE $? "Enabled MYSQL SERVER"
 systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "started MYSQL SEVER"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
-VALIDATE $? "setting root password"
+
+
+
+if [ $? -ne 0 ]
+then
+   echo -e "$R mysql root password is not setp, setting now $N"
+   mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+   VALIDATE $? "setting root password"
+else
+    echo -e  "$G mysql root password is already setp, skipping now $N"
+fi
